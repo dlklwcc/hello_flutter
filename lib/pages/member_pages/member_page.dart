@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
+import '../provider/providers.dart';
 
 class MemberPage extends StatefulWidget {
   @override
@@ -12,7 +14,10 @@ class _MemberPageState extends State<MemberPage> {
     return Container(
       child: Scaffold(
         body: Center(
-          child: Text('我的'),
+          child: Text(
+            '${context.watch<Counter111>().val}',
+            style: TextStyle(fontSize: 30),
+          ),
         ),
       ),
     );

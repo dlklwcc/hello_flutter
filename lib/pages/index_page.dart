@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'home_page.dart';
-import 'category_page.dart';
-import 'cart_page.dart';
-import 'member_page.dart';
+import 'home_pages/home_page.dart';
+import 'category_pages/category_page.dart';
+import 'cart_pages/cart_page.dart';
+import 'member_pages/member_page.dart';
+import '../common.dart';
+
+class InitPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Global.size = MediaQuery.of(context).size;
+    print('width=${Global.size.width},height=${Global.size.height}');
+    return Container(
+      child: IndexPage(),
+    );
+  }
+}
 
 class IndexPage extends StatefulWidget {
   _IndexPagestate createState() => _IndexPagestate();
@@ -29,7 +41,7 @@ class _IndexPagestate extends State<IndexPage> {
     ),
   ];
 
-  final List tabBodies = [
+  final List tabBodies = <Widget>[
     HomePage(),
     CategoryPage(),
     CartPage(),
@@ -48,12 +60,17 @@ class _IndexPagestate extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
-      // appBar: AppBar(
-      //   title: Text('My Shopping!'),
-      //   centerTitle: true,
-      // ),
-      body: currentPage,
+      body: IndexedStack(
+        //使在底部导航栏切换时保持各个页面的状态
+        //在各个页面state函数添加with AutomaticKeepAliveClientMixin 及bool get wantKeepAlive => true;
+        //例如：
+        //class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin {
+        //  @override
+        //  bool get wantKeepAlive => true;
+        //}
+        index: currentIndex,
+        children: tabBodies,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
