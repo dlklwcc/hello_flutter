@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import '../../common.dart';
 
@@ -9,7 +8,7 @@ class TopSwiper extends StatefulWidget {
 }
 
 class _TopSwiperState extends State<TopSwiper> {
-  TextEditingController typeController = TextEditingController(); //文本输入框变量字符
+  //TextEditingController typeController = TextEditingController(); //文本输入框变量字符
   int swiperCount = 3;
   List swiperList = [];
 
@@ -30,6 +29,8 @@ class _TopSwiperState extends State<TopSwiper> {
           key: UniqueKey(), //给一个key，否则会红屏报错
           itemBuilder: (BuildContext context, int index) {
             return FadeInImage(
+              fadeInDuration: Duration(milliseconds: 50),
+              fadeOutDuration: const Duration(milliseconds: 200),
               image: NetworkImage(swiperList[index]),
               placeholder: AssetImage('images/loading16_9.jpg'),
               fit: BoxFit.contain,
@@ -59,29 +60,27 @@ class _TopSwiperState extends State<TopSwiper> {
   }
 
   void getHttpHomePageSwiperFunction() {
-    //print('正在请求~~');
-    getHttpHomePageSwiper(typeController.text.toString()).then((value) {
+    PostHttp('首页轮播').then((value) {
       setState(() {
         swiperList.clear();
         swiperList.addAll(value['picture']);
         //example:"https://dummyimage.com/400x225/be32ac/fff.jpg"
         //print(swiperList);
-        //print('请求成功');
       });
     });
   }
 
-  Future getHttpHomePageSwiper(String text) async {
-    try {
-      Response response;
-      Dio dio = Dio();
-      response = await dio.post(
-        'https://mock.mengxuegu.com/mock/6073090c56076a4a7648447b/shopping/homeSwiper',
-        //data: FormData.fromMap({'size': '200x50'}),
-      );
-      return response.data;
-    } catch (e) {
-      return print(e);
-    }
-  }
+  // Future getHttpHomePageSwiper(String text) async {
+  //   try {
+  //     Response response;
+  //     Dio dio = Dio();
+  //     response = await dio.post(
+  //       'https://mock.mengxuegu.com/mock/6073090c56076a4a7648447b/shopping/homeSwiper',
+  //       //data: FormData.fromMap({'size': '200x50'}),
+  //     );
+  //     return response.data;
+  //   } catch (e) {
+  //     return print('swiper请求失败');
+  //   }
+  // }
 }

@@ -15,7 +15,7 @@ class _MemberPageState extends State<MemberPage> {
       child: Scaffold(
         body: Center(
           child: Text(
-            '${context.watch<Counter111>().val}',
+            '${context.watch<Counter>().val}',
             style: TextStyle(fontSize: 30),
           ),
         ),

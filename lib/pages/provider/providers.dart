@@ -24,9 +24,9 @@ class Counter with ChangeNotifier {
 }
 
 class Counter111 with ChangeNotifier {
-  int val = 0;
+  String codeText = '';
   increment() {
-    val++;
+    //codeText++;
     notifyListeners();
   }
 }

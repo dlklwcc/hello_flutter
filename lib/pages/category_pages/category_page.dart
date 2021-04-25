@@ -18,13 +18,13 @@ class _CategoryPageState extends State<CategoryPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${context.watch<Counter111>().val}',
+                '${context.watch<Counter>().val}',
                 style: TextStyle(fontSize: 30),
               ),
               FloatingActionButton(
                 child: Icon(Icons.add),
                 onPressed: () {
-                  context.read<Counter111>().increment();
+                  context.read<Counter>().increment();
                 },
               )
             ],

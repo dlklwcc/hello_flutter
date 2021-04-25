@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import '../../common.dart';
 
 class HomeGridView extends StatefulWidget {
@@ -70,28 +69,26 @@ class _HomeGridViewState extends State<HomeGridView> {
   }
 
   void getHttpHomePageGridViewFunction() {
-    print('grid正在请求~~');
-    getHttpHomePageGridView().then((value) {
+    PostHttp('首页导航').then((value) {
       setState(() {
         girdList.clear();
         girdList.addAll(value['data']);
         //example:{"img": "https://dummyimage.com/40x60 /69f626 /fff.jpg","name": "尹洋","size": "40x60"}
         //print(girdList);
-        print('grid请求成功');
       });
     });
   }
 
-  Future getHttpHomePageGridView() async {
-    try {
-      Response response;
-      Dio dio = Dio();
-      response = await dio.post(
-        'https://mock.mengxuegu.com/mock/6073090c56076a4a7648447b/shopping/homegridview',
-      );
-      return response.data;
-    } catch (e) {
-      return print('grid请求失败.........');
-    }
-  }
+  // Future getHttpHomePageGridView() async {
+  //   try {
+  //     Response response;
+  //     Dio dio = Dio();
+  //     response = await dio.post(
+  //       'https://mock.mengxuegu.com/mock/6073090c56076a4a7648447b/shopping/homegridview',
+  //     );
+  //     return response.data;
+  //   } catch (e) {
+  //     return print('grid请求失败.........');
+  //   }
+  // }
 }
